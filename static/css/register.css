@@ -1,0 +1,53 @@
+body {
+    margin: 0px;
+    background: white;
+}
+
+.registrationForm {
+    margin-top: 3%;
+    margin-left: 33%;
+    border: 2px solid black;
+    background: rgb(219, 219, 230);
+    width: 500px;
+    height: 660px;
+}
+
+.form-group {
+    padding: 0px 29px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.submitbuttons {
+    font-family: BlueFamily;
+    padding: 10px 20px;
+    background-color: #9c9cb4aa;
+    border-radius: 10%;
+}
+
+input {
+    padding: 7px;
+    margin-top: 3px;
+}
+
+select {
+    padding: 7px;
+    margin-top: 3px;
+    width: 109px;
+}
+
+.title {
+    font-family: BlueFamily;
+    font-size: 250%;
+    padding-top: 30px;
+    text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profile Checker App</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./static/css/register.css">
+    <link rel="stylesheet" href="./static/css/style.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="logo">
+                <div class="navbar-header">
+                    <img src="./static/svgs/phone-vibrate-fill.svg" alt="phone" class="svgs">
+                    <a class="navbar-brand logo">Esdiac</a>
+                </div>
+            </div>
+            <div class="rightNavPart">
+                <div class="nav navbar-nav" style="display:contents">
+                    <div class="buttons">
+                        <button class="login" onclick="location.href='login'">Login</button>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <div class="registrationForm">
+
+        <p class="title">REGISTER</p>
+        {% if message is defined and message %}
+        <div class="alert alert-warning flashErrors">{{ message }}</div>
+        {% endif %}
+        <form action="/register" method="POST" id="reg-form">
+
+            <div class="form-group">
+                Name
+                <input type="text" class="form-control" name="name" id="fname" required size="63" />
+            </div>
+
+            <div class="form-group">
+                Email ID
+                <input type="email" class="form-control" name="email" id="email" required size="63" />
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <br>
+                <select id="country" name="country" size="1" width="16">
+                    <option value="+1">+1 (USA)</option>
+                    <option value="+44">+44 (UK)</option>
+                    <option value="+61">+61 (Australia)</option>
+                    <option value="+91">+91 (India)</option>
+                </select>
+
+                <input type="number" id="phone" name="phone" placeholder="Enter phone number" required>
+            </div>
+
+            <div class="form-group">
+                Password:
+                <input type="password" class="form-control" name="password" id="password" required size="63" />
+            </div>
+
+            <div class="form-group">
+                Confirm Password:
+                <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required
+                    size="63" />
+            </div>
+
+
+            <br>
+            <div class="form-group">
+                <input type="submit" class="submitbuttons" style="float: right;" value="Register" />
+            </div>
+
+        </form>
+
+    </div>
+</body>
+
+</html>

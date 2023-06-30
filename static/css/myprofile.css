@@ -1,0 +1,20 @@
+.profileStyling {
+    margin-top: 3%;
+    margin-left: 33%;
+    border: 2px solid black;
+    background: rgb(219, 219, 230);
+    width: 500px;
+    height: 250px;
+}
+
+.title {
+    font-family: BlueFamily;
+    font-size: 250%;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.form-group {
+    padding: 0px 29px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

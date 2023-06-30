@@ -1,0 +1,66 @@
+@font-face {
+    font-family: "BlueFamily";
+    src: url('../fonts/BLUE.TTF.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "JennaSue";
+    src: url('../fonts/JennaSue.ttf') format('truetype');
+}
+
+header {
+    position: sticky;
+    top: 0;
+    background: rgb(219, 219, 230);
+    z-index: 50;
+    backdrop-filter: blur(1rem);
+    margin-bottom: 4em;
+}
+
+.logo {
+    font-family: JennaSue;
+    font-weight: 900;
+    font-size: 220%;
+    color: black;
+    padding-left: 30px;
+}
+
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.svgs {
+    padding-bottom: 27px
+}
+
+.rightNavPart {
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 40px;
+    width: 30%;
+}
+
+.buttons .register {
+    padding: 10px 20px;
+    margin-left: 20px;
+    font-family: BlueFamily;
+    background-color: #9c9cb4aa;
+    border-radius: 10%;
+    color: black;
+}
+
+.buttons .login {
+    font-family: BlueFamily;
+    padding: 10px 20px;
+    background-color: #9c9cb4aa;
+    border-radius: 10%;
+}
+
+.flashErrors {
+    padding: 10px;
+    color: black;
+    margin: 30px;
+}

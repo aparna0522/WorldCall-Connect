@@ -1,0 +1,18 @@
+h2 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    font: bold;
+}
+
+p {
+    padding: 25px;
+    font-size: large;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.homepage {
+
+    padding: 50px;
+    margin: 30px;
+    text-align: center;
+}
