@@ -1,3 +1,4 @@
+# Using Flask framework along with Mysql database to store user information
 from flask import Flask, render_template, request, redirect, url_for, session, send_file
 from flask_cors import CORS
 from flask_cors import cross_origin
@@ -5,21 +6,23 @@ import requests
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import phonenumbers
+import config
+import bcrypt
 
 app = Flask(__name__)
 CORS(app)
 
-app.config["HOST"] = "localhost"
-app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = "rootuser"
-app.config["MYSQL_DB"] = "users"
-# Extra configs, optional:
+# Database Configuration
+app.config["HOST"] = config.host
+app.config["MYSQL_USER"] = config.mysql_user
+app.config["MYSQL_PASSWORD"] = config.mysql_password
+app.config["MYSQL_DB"] = config.database
 
 mysql = MySQL(app)
-app.secret_key = 'xyzsdfg'
+app.secret_key = 'xyzsdfg'      # for using sessions
 
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=['GET'])  # Landing homepage.
 @cross_origin(supports_credentials=True)
 def homepage():
     return render_template("index.html")
@@ -46,7 +49,6 @@ def register():
             message = 'Account already exists!!'
             print(message)
         else:
-            print(isValid[0])
             if isValid[0] == True:
                 if password == confirmPassword and len(password) > 6:
                     cursor.execute("insert into users (name, email, phone_num, password, confirm_password) values (%s, %s, %s, %s, %s)",
@@ -88,13 +90,6 @@ def login():
     return render_template('login.html', mesage=mesage)
 
 
-@app.route('/logout')
-def logout():
-    session.pop('loggedin', None)
-    session.pop('email', None)
-    return redirect(url_for('login'))
-
-
 @app.route('/dashboard')
 def dashboard():
     if session.get('loggedin'):
@@ -130,6 +125,13 @@ def validate_phone_number(phone_number):
 
     except phonenumbers.phonenumberutil.NumberParseException:
         return False, None
+
+
+@app.route('/logout')
+def logout():
+    session.pop('loggedin', None)
+    session.pop('email', None)
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
