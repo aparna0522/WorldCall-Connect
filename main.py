@@ -33,7 +33,10 @@ def register():
     if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form:
         userName = str(request.form["name"])
         email = str(request.form["email"])
-        phoneNum = str(request.form["phone"])
+        country_code = str(request.form["country"])
+        phoneNum = country_code + str(request.form["phone"])
+        isValid = validate_phone_number(phoneNum)
+        print(isValid)
         password = str(request.form["password"])
         confirmPassword = str(request.form["confirmpassword"])
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -43,15 +46,22 @@ def register():
             message = 'Account already exists!!'
             print(message)
         else:
-            if password == confirmPassword:
-                cursor.execute("insert into users (name, email, phone_num, password, confirm_password) values (%s, %s, %s, %s, %s)",
-                               (userName, email, phoneNum, password, confirmPassword))
-                mysql.connection.commit()
-                message = 'Successfully registered.'
-                print(message)
-                return redirect(url_for('login'))
+            print(isValid[0])
+            if isValid[0] == True:
+                if password == confirmPassword and len(password) > 6:
+                    cursor.execute("insert into users (name, email, phone_num, password, confirm_password) values (%s, %s, %s, %s, %s)",
+                                   (userName, email, phoneNum, password, confirmPassword))
+                    mysql.connection.commit()
+                    message = 'Successfully registered.'
+                    print(message)
+                    return redirect(url_for('login'))
+                else:
+                    if password != confirmPassword:
+                        message = 'Passwords do not match!'
+                    else:
+                        message = 'Minimum Length of password is 6.'
             else:
-                message = 'Passwords do not match!'
+                message = 'Invalid Phone Number'
 
     return render_template('register.html', message=message)
 
@@ -108,14 +118,10 @@ def myprofile():
 
 def validate_phone_number(phone_number):
     try:
-        # Parse the phone number
         parsed_number = phonenumbers.parse(phone_number, None)
-
-        # Check if the phone number is valid
         is_valid = phonenumbers.is_valid_number(parsed_number)
 
         if is_valid:
-            # Get the formatted phone number
             formatted_number = phonenumbers.format_number(
                 parsed_number, phonenumbers.PhoneNumberFormat.E164)
             return True, formatted_number
