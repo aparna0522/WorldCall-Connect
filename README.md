@@ -17,8 +17,11 @@ Features:
 How to run this project?
 1. Please ensure you have the dependencies mentioned above to run this project. 
 2. Create a mysql database called ```users``` Make changes to the config file, if any.
-3. Run this project using ```python3.10 main.py```
-4. The application would be up and running on http://127.0.0.1:5000/
+3. Next create a table users inside this database with the following command:
+   ```create table users(name varchar(20), email varchar(20) primary key, phone_num varchar(30), password varchar(20), confirm_password varchar(20));```
+   name, email, phone_num, password, confirm_password
+5. Run this project using ```python3.10 main.py```
+6. The application would be up and running on http://127.0.0.1:5000/
 
 Routes for the app: 
 1. http://127.0.0.1:5000/
