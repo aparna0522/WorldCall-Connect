@@ -9,9 +9,6 @@ A simple login, and registration portal(microservice), created using flask frame
 - bcrypt
 - pymysql
 
-# Framework used: Python with Flask
-# Database used: Mysql
-
 # Features: 
 - Phone number Validation
 - User Profile can be viewed
