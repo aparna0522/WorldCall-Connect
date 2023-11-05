@@ -1,20 +1,23 @@
 # WorldCall Connect
 
-Dependencies: 
+# Project Description:
+A simple login, and registration portal(microservice), created using flask framework for Python, supporting the system using MySQL database. Lets user to see their profile. 
+
+# Dependencies: 
 - python@3.11
 - flask@2.3.2
 - bcrypt
 - pymysql
 
-Framework used: Python with Flask
-Database used: Mysql
+# Framework used: Python with Flask
+# Database used: Mysql
 
-Features: 
+# Features: 
 - Phone number Validation
 - User Profile can be viewed
 - Form validation (login, registration)
 
-How to run this project?
+# How to run this project?
 1. Please ensure you have the dependencies mentioned above to run this project. 
 2. Create a mysql database called ```users``` Make changes to the config file, if any.
 3. Next create a table users inside this database with the following command:
@@ -22,7 +25,7 @@ How to run this project?
 5. Run this project using ```python3.10 main.py```
 6. The application would be up and running on http://127.0.0.1:5000/
 
-Routes for the app: 
+# Routes for the app: 
 1. http://127.0.0.1:5000/
 2. http://127.0.0.1:5000/register
 3. http://127.0.0.1:5000/login
