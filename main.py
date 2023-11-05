@@ -3,6 +3,8 @@ from flask import Flask, render_template, request, redirect, url_for, session, s
 from flask_cors import CORS
 from flask_cors import cross_origin
 import requests
+import pymysql
+pymysql.install_as_MySQLdb()
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import phonenumbers

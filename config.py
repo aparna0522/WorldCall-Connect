@@ -1,4 +1,4 @@
 host = "localhost"
 mysql_user = "root"
-mysql_password = "rootuser"
+mysql_password = "root"
 database = "users"

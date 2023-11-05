@@ -3,6 +3,8 @@
 Dependencies: 
 - python@3.11
 - flask@2.3.2
+- bcrypt
+- pymysql
 
 Framework used: Python with Flask
 Database used: Mysql
