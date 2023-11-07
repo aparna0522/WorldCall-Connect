@@ -22,6 +22,9 @@ A simple login, and registration portal(microservice), created using flask frame
 5. Run this project using ```python3.10 main.py```
 6. The application would be up and running on http://127.0.0.1:5000/
 
+# Project Demo
+https://github.com/aparna0522/WorldCall-Connect/assets/36110304/c6b3d2b2-e4cc-4e01-a3a1-43ef24766d00
+
 # Routes for the app: 
 1. http://127.0.0.1:5000/
 2. http://127.0.0.1:5000/register
