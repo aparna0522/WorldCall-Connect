@@ -1,0 +1,8 @@
+Flask
+flask-cors
+flask-mysqldb
+bcrypt
+requests
+phonenumbers
+pymysql
+cryptography

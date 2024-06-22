@@ -10,65 +10,65 @@ import MySQLdb.cursors
 import phonenumbers
 import config
 import bcrypt
+import os
 
 app = Flask(__name__)
 CORS(app)
 
 # Database Configuration
-app.config["HOST"] = config.host
-app.config["MYSQL_USER"] = config.mysql_user
-app.config["MYSQL_PASSWORD"] = config.mysql_password
-app.config["MYSQL_DB"] = config.database
+app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', 'mysql')  # Use the service name from docker-compose.yml
+app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', 'root')   # Your MySQL username
+app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', 'root')  # Your MySQL password
+app.config['MYSQL_DB'] = os.getenv('MYSQL_DB', 'users')    # Your MySQL database name
 
 mysql = MySQL(app)
-app.secret_key = 'xyzsdfg'      # for using sessions
-
+app.secret_key = 'xyzsdfg'  # for using sessions
 
 @app.route("/", methods=['GET'])  # Landing homepage.
 @cross_origin(supports_credentials=True)
 def homepage():
+    print("Hello homepage")
     return render_template("index.html")
-
 
 @app.route("/register", methods=['GET', 'POST'])
 @cross_origin(supports_credentials=True)
 def register():
     message = ''
-    cur = mysql.connection.cursor()
     if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form:
         userName = str(request.form["name"])
         email = str(request.form["email"])
         country_code = str(request.form["country"])
         phoneNum = country_code + str(request.form["phone"])
-        isValid = validate_phone_number(phoneNum)
-        print(isValid)
-        password = str(request.form["password"])
-        confirmPassword = str(request.form["confirmpassword"])
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("select * from users where email like %s", (email,))
-        account = cursor.fetchone()
-        if account:
-            message = 'Account already exists!!'
-            print(message)
-        else:
-            if isValid[0] == True:
-                if password == confirmPassword and len(password) > 6:
+        isValid = validate_phone_number(phoneNum)  # Ensure you have this function implemented
+
+        if isValid[0] == True:
+            password = str(request.form["password"])
+            confirmPassword = str(request.form["confirmpassword"])
+            if password == confirmPassword and len(password) >= 6:
+                hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+                print("connection cannot be created")
+                cursor = mysql.connection.cursor()
+                cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+                account = cursor.fetchone()
+
+                if account:
+                    message = 'Account already exists!'
+                else:
                     cursor.execute("insert into users (name, email, phone_num, password, confirm_password) values (%s, %s, %s, %s, %s)",
                                    (userName, email, phoneNum, password, confirmPassword))
                     mysql.connection.commit()
                     message = 'Successfully registered.'
-                    print(message)
                     return redirect(url_for('login'))
-                else:
-                    if password != confirmPassword:
-                        message = 'Passwords do not match!'
-                    else:
-                        message = 'Minimum Length of password is 6.'
             else:
-                message = 'Invalid Phone Number'
+                if password != confirmPassword:
+                    message = 'Passwords do not match!'
+                else:
+                    message = 'Minimum Length of password is 6.'
+        else:
+            message = 'Invalid Phone Number'
 
     return render_template('register.html', message=message)
-
 
 @app.route("/login", methods=['GET', 'POST'])
 @cross_origin(supports_credentials=True)
@@ -137,4 +137,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
